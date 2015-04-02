@@ -1,3 +1,4 @@
+var db=null;
 angular.module('starter.controllers', [])
 
 // **************************************Sign In Controller*******************************************************
@@ -9,13 +10,12 @@ angular.module('starter.controllers', [])
 	//$urlRouterProvider.otherwise("/welcome/home");
 
 
-	alert("Sign In Controller"+$rootScope.d222);
 	// *****Begin Show User ID**********
 
 	 document.addEventListener('deviceready', function () {
-	 	alert("device ready");
 	  $scope.uuid = $cordovaDevice.getUUID();
-	$rootScope.db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
+	//alert("Sigin In con");
+	db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS useridinfo (user_id text)");
 	     var query = "SELECT user_id FROM useridinfo";
         $cordovaSQLite.execute(db, query).then(function(res) {
@@ -225,13 +225,13 @@ angular.module('starter.controllers', [])
 							}); 
 												
 													 
-							//	$state.go('app.welcome');
+								//$state.go('app.welcome');
 								
 								
 								//*************Begin Save User ID************
-							
+								
 										 var query = "SELECT user_id FROM useridinfo where user_id=?";
-										  $cordovaSQLite.execute($rootScope.db, query,[user.uname]).then(function(res) {
+										  $cordovaSQLite.execute(db, query,[user.uname]).then(function(res) {
 											if(res.rows.length > 0) {			
 												for(var i=0; i<res.rows.length; i++){
 													
@@ -248,14 +248,14 @@ angular.module('starter.controllers', [])
 														//Begin Else Query
 														var queryUserID = "SELECT user_id FROM useridinfo";
 												 
-													$cordovaSQLite.execute($rootScope.db, queryUserID).then(function(res) {
+													$cordovaSQLite.execute(db, queryUserID).then(function(res) {
 														if(res.rows.length > 0) {			
 															for(var i=0; i<res.rows.length; i++){
 															var uid=res.rows.item(i).user_id;
 															
 															//Begin Update
 															 var queryUserIDUpdate = "UPDATE useridinfo set user_id=? where user_id=?";
-																 $cordovaSQLite.execute($rootScope.db, queryUserIDUpdate,[user.uname,uid]).then(function(res) {
+																 $cordovaSQLite.execute(db, queryUserIDUpdate,[user.uname,uid]).then(function(res) {
 																  //alert("Updated Successfully");
 																	$state.go('app.welcome');																  
 																}, function (err) {
@@ -270,7 +270,7 @@ angular.module('starter.controllers', [])
 														 
 															//Begin For Insert
 																var insertqQuery = "INSERT INTO useridinfo (user_id) VALUES (?)";
-																	 $cordovaSQLite.execute($rootScope.db, insertqQuery,[user.uname]).then(function(res) {
+																	 $cordovaSQLite.execute(db, insertqQuery,[user.uname]).then(function(res) {
 																//alert("Insert successfully !");
 																$state.go('app.welcome');
 																}, function (err) {
@@ -289,7 +289,7 @@ angular.module('starter.controllers', [])
 										   // console.error(err);
 											 alert("Error Method");
 										});
-								
+							
 								//***********End Save User ID****************
 								
 								
