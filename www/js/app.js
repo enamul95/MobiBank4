@@ -7,6 +7,7 @@ angular.module('starter', ['ionic' ,'starter.controllers','starter.directives','
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
+  	$rootScope.d222="hello";
   	alert("app Controller");
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
