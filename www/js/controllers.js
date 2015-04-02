@@ -9,6 +9,7 @@ angular.module('starter.controllers', [])
 	//$urlRouterProvider.otherwise("/welcome/home");
 
 
+	alert("Sign In Controller"+$rootScope.d222);
 	// *****Begin Show User ID**********
 
 	 document.addEventListener('deviceready', function () {
