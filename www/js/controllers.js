@@ -12,6 +12,7 @@ angular.module('starter.controllers', [])
 	// *****Begin Show User ID**********
 
 	 document.addEventListener('deviceready', function () {
+	 	alert("device ready");
 	  $scope.uuid = $cordovaDevice.getUUID();
 	$rootScope.db = $cordovaSQLite.openDB({ name: "bankasiadb.db" });
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS useridinfo (user_id text)");
